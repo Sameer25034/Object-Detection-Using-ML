@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="p2.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection Web App</title>
+</head>
+
+
+<body>
+
+    <header>
+        <div>
+            <h1>Object Detection</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home" onclick="toggleSection('home')">Home</a></li>
+            <li><a href="#introduction" onclick="toggleSection('introduction')">Introduction</a></li>
+            <li><a href="#key-components" onclick="toggleSection('key-components')">Key Components</a></li>
+            <li><a href="#applications" onclick="toggleSection('applications')">Applications</a></li>
+            <li><a href="#challenges" onclick="toggleSection('challenges')">Challenges</a></li>
+            <li><a href="#demo" onclick="toggleSection('demo')">Demo</a></li>
+            <li><a href="#technologies-used" onclick="toggleSection('technologies-used')">Technologies used</a></li>
+            <li><a href="#faqs" onclick="toggleSection('faqs')">Faqs</a></li>
+            <li><a href="#conclusion" onclick="toggleSection('conclusion')">Conclusion</a></li>
+            <li><a href="#about-project" onclick="toggleSection('about-project')">About project</a></li>
+            <li><a href="#team" onclick="toggleSection('team')">Team</a></li>
+            <li><a href="#contact" onclick="toggleSection('contact')">Contact</a></li>
+            <li><a href="#darkmode" id="darkModeNavLink">Dark mode</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="introduction">
+            <h2>Introduction to Object Detection</h2>
+            <img src="https://deeplobe.ai/wp-content/uploads/2023/06/Object-detection-Real-world-applications-and-benefits.png" height="500" width="700" alt="object Detection Illustration">
+            <p>Object detection is a computer vision task that involves identifying and locating objects within an image or video. The goal is to recognize and classify objects while also providing information about their spatial location through bounding boxes. In other words, object detection not only determines what objects are present in an image but also where they are located.</p>
+            <button id="tryObjectDetectionBtn" class="cta-button" onclick="tryObjectDetection()">Try Object Detection</button>
+            <iframe id="objectDetectionFrame" src="about:blank" width="100%" height="500px"></iframe>
+            <button id="closeObjectDetectionBtn" class="cta-button" onclick="closeObjectDetection()" style="display: none;">Close Object Detection</button>  
+            <div id="objectDetectionContainer" style="display: none;">
+            </div>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+        <section id="key-components">
+            <h2>Key Components of Object Detection</h2>
+            <ul>
+                <li>
+                    <h3>Localization</h3>
+                    <p>Object detection involves determining the precise location of objects within an image, typically represented by bounding boxes indicating the boundaries of detected objects.</p>
+                </li>
+                <li>
+                    <h3>Classification</h3>
+                    <p>Along with localization, object detection includes classifying the detected objects into predefined categories or classes, allowing the system to understand the identity of each recognized object.</p>
+                </li>
+                <li>
+                    <h3>Object Recognition</h3>
+                    <p>Object detection goes beyond localization and classification by providing a comprehensive understanding of the scene, facilitating more advanced applications.</p>
+                </li>
+            </ul>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+
+        <section id="applications">
+            <h2>Applications of Object Detection</h2>
+            <ul class="main-content">
+                <li>
+                    <h3>Autonomous Vehicles</h3>
+                    <p>Object detection is critical for the safety and functionality of autonomous vehicles, aiding in the identification of pedestrians, vehicles, and obstacles in the environment.</p>
+                </li>
+                <li>
+                    <h3>Surveillance Systems</h3>
+                    <p>Surveillance cameras leverage object detection to monitor and analyze scenes, identifying potential security threats or unusual activities.</p>
+                </li>
+                <li>
+                    <h3>Medical Imaging</h3>
+                    <p>In medical imaging, object detection is used to identify and analyze anomalies in X-rays, MRIs, or other medical scans.</p>
+                </li>
+                <li>
+                    <h3>Retail Analytics</h3>
+                    <p>Object detection is employed in retail for tracking inventory, monitoring customer behavior, and preventing theft.</p>
+                </li>
+                <li>
+                    <h3>Augmented Reality</h3>
+                    <p>Augmented reality applications utilize object detection to recognize and overlay digital information on real-world objects.</p>
+                </li>
+            </ul>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+        <section id="challenges" class="section">
+            <div class="container">
+                <h2>Challenges and Future Developments</h2>
+                <ul>
+                    <li>
+                        <h3>Scale and Variability</h3>
+                        <p>Object detection algorithms must handle objects of different sizes, orientations, and scales. Developing robust models that generalize well to diverse scenarios is an ongoing challenge.</p>
+                    </li>
+                    <li>
+                        <h3>Real-Time Processing</h3>
+                        <p>Real-time object detection is critical for many applications, including robotics and autonomous systems. Ongoing efforts focus on optimizing algorithms for faster and more efficient processing.</p>
+                    </li>
+                    <li>
+                        <h3>Data Annotation</h3>
+                        <p>High-quality labeled datasets are essential for training accurate object detection models. The process of annotating data with bounding boxes is labor-intensive and requires careful attention to detail.</p>
+                    </li>
+                    <li>
+                        <h3>Integration with Other Technologies</h3>
+                        <p>Object detection is often integrated with other technologies such as natural language processing and reinforcement learning for more advanced and contextual understanding.</p>
+                    </li>
+                </ul>
+            </div>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+        <section id="demo" class="section">
+            <div class="container">
+                <h2>Demo</h2>
+                <p>Explore a live demo of our object detection system. Upload your own images or use your camera to see the system in action.</p>
+                <video id="demoVideo" width="500" height="400" controls>
+                    <source src="videoproject.mp4" type="video/mp4">
+                </video>
+                <section>
+                    <button class="cta-button" onclick="launchDemo()">Want to Launch a Demo</button>
+                    <button class="cta-button" onclick="closeDemo()" style="display: none;">Close Demo</button>
+                    </section>
+                    <section><button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button></section>
+            </div>
+        </section>
+        <section id="technologies-used" class="section">
+            <div class="container">
+                <h2>Technologies Used</h2>
+                <p>Our project leverages cutting-edge technologies to deliver powerful object detection capabilities. Key technologies include:</p>
+                <ul>
+                    <li>Python</li>
+                    <li>TensorFlow</li>
+                    <li>Streamlit</li>
+                    <li>HTML/CSS</li>
+                    <li>JavaScript</li>
+                </ul>
+            </div>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+
+        <section id="faqs" class="section">
+            <div class="container">
+                <h2>FAQs</h2>
+                <p>Explore frequently asked questions about object detection and our web application.</p>
+                <div class="faq-item">
+                    <h3>Q: How accurate is the object detection system?</h3>
+                    <p>A: Our system utilizes state-of-the-art models, providing high accuracy in detecting objects.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q: Can I integrate this object detection system into my own project?</h3>
+                    <p>A: Yes, our system is designed to be modular and can be integrated into various projects with ease.</p>
+                </div>
+                <!-- Add more FAQ items as needed -->
+            </div>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+        <section id="conclusion" class="section">
+            <div class="container">
+                <h2>Conclusion</h2>
+                <p>Object detection is a powerful technology with a wide range of applications, revolutionizing industries and enhancing the capabilities of various systems. As advancements in computer vision continue, object detection will play a crucial role in shaping the future of automation, safety, and intelligent decision-making.</p>
+                <p>Feel free to customize this information based on the specific focus and audience of your website. You can include visual examples, case studies, and links to relevant research papers or resources for those interested in delving deeper into the topic.</p>
+            </div>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+        <section id="about-project" class="section">
+            <div class="container">
+                <h2>About the Project</h2>
+                <p>This web application showcases the capabilities of object detection in computer vision. It allows users to explore and understand the technology behind identifying and locating objects in images and videos. The project utilizes state-of-the-art object detection models for accurate and efficient results.</p>
+            </div>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+
+        <section id="team">
+            <h2>Meet the Team</h2>
+            <div class="team-members">
+                <div class="team-member">
+                    <img src="https://erp.psit.ac.in/assets/img/Simages/2211948.jpg" height="200" width="200" alt="Team Member 1">
+                    <p>Dewashish Dwivedi</p>
+                    <p>Machine Learning & AI Engineer</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://erp.psit.ac.in/assets/img/Simages/2212694.jpg" height="200" width="200"alt="Team Member 2">
+                    <p>Divy Gupta</p>
+                    <p>Machine Learning & AI Engineer</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://erp.psit.ac.in/assets/img/Simages/2212336.jpg" height="200" width="200" alt="Team Member 3">
+                    <p>Mohd. Shariq</p>
+                    <p>Fullstack Developer & AI Engineer</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://erp.psit.ac.in/assets/img/Simages/2212254.jpg" height="200" width="200" alt="Team Member 4">
+                    <p>Sameer Singh</p>
+                    <p>Computer Vision Specialist & Fullstack Developer</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://erp.psit.ac.in/assets/img/Simages/32668.jpg" height="200" width="200" alt="Team Member 1">
+                    <p>Vishal Pal</p>
+                    <p>Computer Vision Specialist & AI Engineer</p>
+                </div>
+            </div>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <div class="contact-info main-content">
+                <p>Have questions or feedback? We'd love to hear from you!</p>
+                <ul>
+                    <li>Email: info@example.com</li>
+                    <li>Twitter: @ObjectDetectionTeam</li>
+                    <li>LinkedIn: Object Detection Team</li>
+                    <li>Instagram: Object Detection Team</li>
+                    <li>Facebook: Object Detection Team</li>
+                    <li>Discord: Object Detection Team</li>
+                </ul>
+            </div>
+            <section>
+                <button id="scrollToTopBtn" class="cta-button" onclick="scrollToTop()">Scroll to Top</button>
+            </section>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 Object Detection Web App</p>
+        <p>Made with &hearts; by Object Detection Team</p>
+    </footer>
+    <script src="p3.js"></script>
+</body>
+
+</html>
