@@ -1,0 +1,11 @@
+streamlit
+opencv-python-headless
+Pillow
+torch
+torchvision
+ultralytics
+numpy
+matplotlib
+requests
+yolov5
+pytube
