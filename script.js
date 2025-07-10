@@ -170,10 +170,6 @@ function toggleMute() {
         muteButton.textContent = video.muted ? 'Unmute' : 'Mute';
     }
 }
-function tryObjectDetection() {
-    console.log("Opening object detection in a new tab...");
-    window.open("https://object-detection-4you.streamlit.app/", "_blank");
-}
 
 function scrollToTop() {
     window.scrollTo({
