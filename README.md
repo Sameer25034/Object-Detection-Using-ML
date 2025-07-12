@@ -1,96 +1,135 @@
-🧠 Object Detection Web App
-Welcome to the Object Detection Web App! This project leverages deep learning models to perform real-time object detection in images and videos. It offers a clean and intuitive web interface powered by Streamlit.
+# 🧠 Object Detection Web App
 
-🚀 Features
-🔍 Web-based object detection via a modern interface
+Welcome to the **Object Detection Web App**, a real-time image and video object detection system built with deep learning. This intuitive web application is powered by **Streamlit**, **PyTorch**, and **OpenCV**, offering fast inference and a smooth user experience.
 
-🧠 Supports multiple object categories using pre-trained models
+🔗 **Live Demo**: [Click here to explore the app](https://sameer25034.github.io/Object-Detection-Using-ML/)
 
-📸 Live camera and image upload functionality
+---
 
-⚡ Fast and efficient inference with PyTorch and OpenCV
+## 🚀 Features
 
-👨‍💻 User-friendly interface for ease of use
+* 🌐 **Web-Based Interface** – Clean and simple UI using Streamlit
+* 🎯 **Multi-Category Detection** – Uses pre-trained deep learning models
+* 📸 **Live Camera & Image Upload** – Detect objects in real-time or from images
+* ⚡ **Fast Inference** – Efficient processing with PyTorch and OpenCV
+* 💡 **User-Friendly** – Designed for both developers and non-tech users
 
-🖥️ Demo
-Image Upload Detection	Real-Time Camera Feed
+---
 
-📷 Screenshots of object detection results using uploaded image and webcam feed.
+## 🧩 Tech Stack
 
-🛠️ Installation
-🔗 Prerequisites
-Make sure you have Python 3.8+ installed.
+### 🔹 Frontend
 
-📦 Install Dependencies
-bash
-Copy
-Edit
-pip install streamlit opencv-python numpy torch torchvision requests
-🧩 Tech Stack
-🔹 Frontend
-Streamlit – Python-based UI framework
+* **Streamlit** – Python-based rapid UI development
+* **HTML/CSS/JS** – For minimal custom styling
 
-HTML/CSS/JavaScript (for custom styling)
+### 🔹 Backend
 
-🔹 Backend
-PyTorch & Torchvision – For object detection models
+* **PyTorch + Torchvision** – Pre-trained object detection models
+* **OpenCV** – Image/video processing
+* **Streamlit** – Web hosting and rendering
 
-OpenCV – For image/video processing
+---
 
-Streamlit – For hosting and rendering the interface
+## 🛠️ Installation
 
-🚀 Getting Started
-Clone the repository
+### 🔗 Prerequisites
 
-bash
-Copy
-Edit
-git clone https://github.com/your-username/object-detection-web-app.git
+* Python 3.8 or higher
+
+### 📦 Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/Sameer25034/object-detection-web-app.git
 cd object-detection-web-app
-Run the app
 
-bash
-Copy
-Edit
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the app
 streamlit run app.py
-Open in browser
-Visit http://localhost:8501 to interact with the app.
+```
 
-📁 Project Structure
-bash
-Copy
-Edit
+Open your browser and navigate to: [http://localhost:8501](http://localhost:8501)
+
+---
+
+## 📁 Project Structure
+
+```
 object-detection-web-app/
 │
-├── app.py                    # Main Streamlit application
-├── models/                   # Pre-trained models or model loading logic
-├── utils/                    # Utility functions
-├── screenshots/              # Demo images
-├── requirements.txt          # Project dependencies
-└── README.md                 # Project documentation
-🤝 Contributing
+├── app.py                  # Main Streamlit application
+├── models/                 # Pre-trained model loading and logic
+├── utils/                  # Helper functions for processing
+├── screenshots/            # Example detection results
+├── requirements.txt        # Python dependencies
+└── README.md               # Project documentation
+```
+
+---
+
+## 🖼️ Demo
+
+* **Image Upload Detection**
+* **Real-Time Webcam Detection**
+
+> Visit the [Live Demo](https://sameer25034.github.io/Object-Detection-Using-ML/) to try it yourself.
+
+---
+
+## 🤝 Contributing
+
 We welcome contributions!
-To contribute:
 
-Fork this repository
+```bash
+# Fork the repository
+# Create a new branch
+git checkout -b feature-branch
 
-Create a new branch (git checkout -b feature-branch)
+# Make your changes and commit
+git commit -m "Add new feature"
 
-Commit your changes (git commit -m 'Add some feature')
+# Push and open a pull request
+git push origin feature-branch
+```
 
-Push to the branch (git push origin feature-branch)
+---
 
-Create a Pull Request
+## 📄 License
 
-📄 License
-This project is licensed under the MIT License.
+This project is licensed under the **MIT License**.
 
-🙌 Acknowledgements
-Streamlit
+```
+MIT License
 
-PyTorch
+Copyright (c) 2025 Sameer Singh
 
-COCO Dataset
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-OpenCV
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
+```
+
+---
+
+## 🙌 Acknowledgements
+
+* [Streamlit](https://streamlit.io)
+* [PyTorch](https://pytorch.org)
+* [OpenCV](https://opencv.org)
+* [COCO Dataset](https://cocodataset.org)
