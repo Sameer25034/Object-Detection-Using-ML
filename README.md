@@ -2,6 +2,10 @@
 
 Welcome to the **Object Detection Web App**, a real-time image and video object detection system built with deep learning. This intuitive web application is powered by **Streamlit**, **PyTorch**, and **OpenCV**, offering fast inference and a smooth user experience.
 
+<p align="center">
+  <img src="https://deeplobe.ai/wp-content/uploads/2023/06/Object-detection-Real-world-applications-and-benefits.png" alt="Object Detection Result" width="600"/>
+</p>
+
 🔗 **Live Demo**: [Click here to explore the app](https://sameer25034.github.io/Object-Detection-Using-ML/)
 
 ---
@@ -52,21 +56,6 @@ streamlit run app.py
 ```
 
 Open your browser and navigate to: [http://localhost:8501](http://localhost:8501)
-
----
-
-## 📁 Project Structure
-
-```
-object-detection-web-app/
-│
-├── app.py                  # Main Streamlit application
-├── models/                 # Pre-trained model loading and logic
-├── utils/                  # Helper functions for processing
-├── screenshots/            # Example detection results
-├── requirements.txt        # Python dependencies
-└── README.md               # Project documentation
-```
 
 ---
 
