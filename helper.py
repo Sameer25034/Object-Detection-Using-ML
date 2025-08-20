@@ -1,28 +1,19 @@
 from ultralytics import YOLO
-import time
-import streamlit as st
 import cv2
-from pytube import YouTube
-
+import streamlit as st
+import yt_dlp
 import settings
 
 
+# ---------------- Load Model ----------------
 def load_model(model_path):
-    """
-    Loads a YOLO object detection model from the specified model_path.
-
-    Parameters:
-        model_path (str): The path to the YOLO model file.
-
-    Returns:
-        A YOLO object detection model.
-    """
-    model = YOLO(model_path)
-    return model
+    """Load YOLO model from given path."""
+    return YOLO(str(model_path))
 
 
+# ---------------- Tracker Options ----------------
 def display_tracker_options():
-    display_tracker ='No' #st.radio("Display Tracker", ('Yes', 'No'))
+    display_tracker = 'No'  # st.radio("Display Tracker", ('Yes', 'No'))
     is_display_tracker = True if display_tracker == 'Yes' else False
     if is_display_tracker:
         tracker_type = st.radio("Tracker", ("bytetrack.yaml", "botsort.yaml"))
@@ -30,150 +21,119 @@ def display_tracker_options():
     return is_display_tracker, None
 
 
+# ---------------- Frame Display ----------------
 def _display_detected_frames(conf, model, st_frame, image, is_display_tracking=None, tracker=None):
     """
-    Display the detected objects on a video frame using the YOLOv8 model.
-
-    Args:
-    - conf (float): Confidence threshold for object detection.
-    - model (YoloV8): A YOLOv8 object detection model.
-    - st_frame (Streamlit object): A Streamlit object to display the detected video.
-    - image (numpy array): A numpy array representing the video frame.
-    - is_display_tracking (bool): A flag indicating whether to display object tracking (default=None).
-
-    Returns:
-    None
+    Run YOLO detection/tracking on a frame and display via Streamlit.
     """
+    # Resize for display
+    h, w = image.shape[:2]
+    target_w = 720
+    scale = target_w / max(1, w)
+    target_h = int(h * scale)
+    image_resized = cv2.resize(image, (target_w, target_h))
 
-    # Resize the image to a standard size
-    image = cv2.resize(image, (720, int(840*(9/16))))
-
-    # Display object tracking, if specified
+    # Detection / Tracking
     if is_display_tracking:
-        res = model.track(image, conf=conf, persist=True, tracker=tracker)
+        res = model.track(image_resized, conf=conf, persist=True, tracker=tracker)
     else:
-        # Predict the objects in the image using the YOLOv8 model
-        res = model.predict(image, conf=conf)
+        res = model.predict(image_resized, conf=conf)
 
-    # # Plot the detected objects on the video frame
+    # Plot & Display
     res_plotted = res[0].plot()
-    st_frame.image(res_plotted,
-                   caption='Detected Video',
-                   channels="BGR",
-                   use_column_width=True
-                   )
+    st_frame.image(
+        res_plotted,
+        caption="Detected Video",
+        channels="BGR",
+        use_column_width=True
+    )
+
+
+# ---------------- YouTube Stream ----------------
+def _get_youtube_stream_url(url: str) -> str:
+    """
+    Extract direct stream URL from YouTube (without full download).
+    """
+    ydl_opts = {
+        "format": "best[ext=mp4]/best",
+        "quiet": True,
+        "nocheckcertificate": True,
+        "skip_download": True,
+    }
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+        return info["url"]
 
 
 def play_youtube_video(conf, model):
     source_youtube = st.sidebar.text_input("YouTube Video URL")
-
     is_display_tracker, tracker = display_tracker_options()
 
-    if st.sidebar.button('Detect Objects'):
+    if st.sidebar.button("Detect Objects", key="yt"):
+        if not source_youtube:
+            st.sidebar.error("Please paste a YouTube URL")
+            return
         try:
-            yt = YouTube(source_youtube)
+            stream_url = _get_youtube_stream_url(source_youtube)
+            vid_cap = cv2.VideoCapture(stream_url)
 
-            # Try to get 720p progressive stream, else fallback to first available
-            stream = yt.streams.filter(progressive=True, file_extension="mp4", res="720p").first()
-            if stream is None:
-                stream = yt.streams.filter(progressive=True, file_extension="mp4").first()
+            st_frame = st.empty()
+            while vid_cap.isOpened():
+                success, image = vid_cap.read()
+                if success:
+                    _display_detected_frames(conf, model, st_frame, image, is_display_tracker, tracker)
+                else:
+                    vid_cap.release()
+                    break
+        except Exception as e:
+            st.sidebar.error("Error loading YouTube stream: " + str(e))
 
-            if stream is None:
-                st.sidebar.error("No compatible MP4 stream found for this video!")
-                return
 
-            vid_cap = cv2.VideoCapture(stream.url)
+# ---------------- RTSP Stream ----------------
+def play_rtsp_stream(conf, model):
+    """
+    Plays an RTSP stream and detects objects using YOLOv8.
+    """
+    source_rtsp = st.sidebar.text_input("RTSP stream URL:")
+    st.sidebar.caption("Example: rtsp://admin:12345@192.168.1.210:554/Streaming/Channels/101")
+    is_display_tracker, tracker = display_tracker_options()
+
+    if st.sidebar.button("Detect Objects", key="rtsp"):
+        try:
+            vid_cap = cv2.VideoCapture(source_rtsp)
             st_frame = st.empty()
 
             while vid_cap.isOpened():
                 success, image = vid_cap.read()
                 if success:
-                    _display_detected_frames(
-                        conf,
-                        model,
-                        st_frame,
-                        image,
-                        is_display_tracker,
-                        tracker,
-                    )
+                    _display_detected_frames(conf, model, st_frame, image, is_display_tracker, tracker)
                 else:
                     vid_cap.release()
-                    break
-        except Exception as e:
-            st.sidebar.error("Error loading video: " + str(e))
-
-
-'''
-def play_rtsp_stream(conf, model):
-    """
-    Plays an rtsp stream. Detects Objects in real-time using the YOLOv8 object detection model.
-
-    Parameters:
-        conf: Confidence of YOLOv8 model.
-        model: An instance of the `YOLOv8` class containing the YOLOv8 model.
-
-    Returns:
-        None
-
-    Raises:
-        None
-    """
-    source_rtsp = st.sidebar.text_input("rtsp stream url:")
-    st.sidebar.caption('Example URL: rtsp://admin:12345@192.168.1.210:554/Streaming/Channels/101')
-    is_display_tracker, tracker = display_tracker_options()
-    if st.sidebar.button('Detect Objects'):
-        try:
-            vid_cap = cv2.VideoCapture(source_rtsp)
-            st_frame = st.empty()
-            while (vid_cap.isOpened()):
-                success, image = vid_cap.read()
-                if success:
-                    _display_detected_frames(conf,
-                                             model,
-                                             st_frame,
-                                             image,
-                                             is_display_tracker,
-                                             tracker
-                                             )
-                else:
-                    vid_cap.release()
-                    # vid_cap = cv2.VideoCapture(source_rtsp)
-                    # time.sleep(0.1)
-                    # continue
                     break
         except Exception as e:
             vid_cap.release()
-            st.sidebar.error("Error loading RTSP stream: " + str(e))'''
+            st.sidebar.error("Error loading RTSP stream: " + str(e))
 
 
+# ---------------- Webcam ----------------
 def play_webcam(conf, model):
     """
-    Plays a webcam stream. Detects Objects in real-time using the YOLOv8 object detection model.
-
-    Parameters:
-        conf: Confidence of YOLOv8 model.
-        model: An instance of the `YOLOv8` class containing the YOLOv8 model.
-
-    Returns:
-        None
-
-    Raises:
-        None
+    Plays webcam stream and detects objects using YOLOv8.
     """
-
     source_webcam = settings.WEBCAM_PATH
     is_display_tracker, tracker = display_tracker_options()
-    if st.sidebar.button('Detect Objects'):
+
+    if st.sidebar.button("Detect Objects", key="webcam"):
         try:
             vid_cap = cv2.VideoCapture(source_webcam)
             st_frame = st.empty()
-            while (vid_cap.isOpened()):
+
+            while vid_cap.isOpened():
                 success, image = vid_cap.read()
                 if success:
-                    _display_detected_frames(conf,model,st_frame,image,is_display_tracker,tracker,)
+                    _display_detected_frames(conf, model, st_frame, image, is_display_tracker, tracker)
                 else:
                     vid_cap.release()
                     break
         except Exception as e:
-            st.sidebar.error("Error loading video: " + str(e))
-
+            st.sidebar.error("Error loading webcam: " + str(e))
