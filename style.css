@@ -187,8 +187,6 @@ textarea:focus::placeholder {
   resize: vertical; /* Allow vertical resizing only */
 }
 
-
-
 /* Button styles */
 .btn {
   background-color: #33ff44; /* Button color */
