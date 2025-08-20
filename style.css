@@ -1,213 +1,204 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #000; /* Set background to black */
-    color: #ecf0f1;
-    line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #101010;
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
 }
-
-body.dark-mode {
-    background-color: #0d0101; /* Darker background for dark mode */
-    color: #ecf0f1; /* Ensure text color is readable */
-}
-
-/* Dark mode navigation */
-body.dark-mode nav {
-    background-color: #000a14;
-    box-shadow: 0 2px 4px rgba(241, 12, 12, 0.1);
-}
-
 /* Header styling */
 header {
-    background-color: #0b0400;
-    color: #0ede06;
-    padding: 20px 0;
-    text-align: center;
+  background-color: #fcfaf9;
+  color: #000000;
+  padding: 20px 0;
+  text-align: center;
 }
 
 /* Navigation styles */
 nav {
-    display: flex;
-    justify-content: center;
-    background-color: #000000; /* Fixed syntax */
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff; /* Fixed syntax */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: space-evenly;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 nav a {
-    text-decoration: none;
-    color: #f80505;
-    padding: 5px 18px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+  text-decoration: none;
+  color: #f80505;
+  padding: 5px 18px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 nav a:hover {
-    background-color: #e3d804;
+  background-color: #e3d804;
 }
 
 section {
-    padding: 20px;
-    background-color: #000000;
-    margin: 20px 0;
-    border-radius: 8px;
+  padding: 20px;
+  background-color: #f5f3f3;
+  margin: 20px 0;
+  border-radius: 8px;
 }
 
 h2 {
-    color: #b7f709;
-    border-bottom: 2px solid #fe0606;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+  color: #151515;
+  border-bottom: 2px solid #fe0606;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 button.cta-button {
-    background-color: #164e74; /* Same as your Try Object Detection button */
-    color: #ecf0f1;
-    padding: 14px 24px;
-    font-size: 18px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  background-color: #164e74; /* Same as your Try Object Detection button */
+  color: #ecf0f1;
+  padding: 14px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 .btn {
-    background-color: #ff0202; /* Change to your desired color */
-    color: white; /* Text color */
-    border: none; /* Remove border */
-    padding: 15px 30px; /* Top/Bottom and Left/Right padding */
-    font-size: 16px; /* Font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition */
-    display: inline-block; /* Align inline */
+  background-color: #ff0202; /* Change to your desired color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  padding: 15px 30px; /* Top/Bottom and Left/Right padding */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  display: inline-block; /* Align inline */
 }
 .btn:hover {
-    background-color: #ff3b00; /* Darker shade for hover effect */
+  background-color: #ff3b00; /* Darker shade for hover effect */
 }
 
 button.cta-button:hover {
-    background-color: #303e0b; /* Change to whatever hover color you prefer */
+  background-color: #303e0b; /* Change to whatever hover color you prefer */
 }
 
-
 button.cta-button:hover {
-    background-color: #1c3b5f; /* Changed for better contrast */
+  background-color: #1c3b5f; /* Changed for better contrast */
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 li {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 #iframe {
-    display: block; /* Ensure it's set to block */
+  display: block; /* Ensure it's set to block */
 }
 
 footer {
-    border-top: 1px solid #ef0602;
-    padding: 20px;
-    text-align: center;
-    background-color: #000000;
-    color: #ecf0f1;
+  border-top: 1px solid #ef0602;
+  padding: 20px;
+  text-align: center;
+  background-color: #000000;
+  color: #ecf0f1;
 }
 
 footer p {
-    margin: 0;
+  margin: 0;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .team-members {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
 }
 
 .team-member {
-    text-align: center;
+  text-align: center;
 }
 
 .team-member img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .contact-info ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .contact-info li {
-    margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 /* General input and textarea styling */
-input, textarea {
-    width: 100%; /* Full width */
-    padding: 15px; /* Padding inside input */
-    font-size: 16px; /* Font size */
-    border: 2px solid #e40909; /* Border */
-    border-radius: 5px; /* Rounded corners */
-    transition: border-color 0.3s ease; /* Smooth transition */
-    background-color: #080000; /* Dark background */
-    margin-bottom: 15px; /* Space between blocks */
-    color: #ecf0f1; /* Text color */
+input,
+textarea {
+  width: 100%; /* Full width */
+  padding: 15px; /* Padding inside input */
+  font-size: 16px; /* Font size */
+  border: 2px solid #e40909; /* Border */
+  border-radius: 5px; /* Rounded corners */
+  transition: border-color 0.3s ease; /* Smooth transition */
+  background-color: #080000; /* Dark background */
+  margin-bottom: 15px; /* Space between blocks */
+  color: #ecf0f1; /* Text color */
 }
 
 /* Placeholder styling */
-input::placeholder, textarea::placeholder {
-    color: #ecf0f1;  /* Light color for placeholder */
-    opacity: 1;      /* Ensure full opacity */
+input::placeholder,
+textarea::placeholder {
+  color: #ecf0f1; /* Light color for placeholder */
+  opacity: 1; /* Ensure full opacity */
 }
 
 /* Change border color on focus */
-input:focus, textarea:focus {
-    border-color: #29c80a; /* Color on focus */
-    outline: none; /* Remove default outline */
-    color: #ffffff; /* Text color on focus */
+input:focus,
+textarea:focus {
+  border-color: #29c80a; /* Color on focus */
+  outline: none; /* Remove default outline */
+  color: #ffffff; /* Text color on focus */
 }
 
-input:focus::placeholder, textarea:focus::placeholder {
-    color: #ffffff;  /* Change placeholder color on focus */
+input:focus::placeholder,
+textarea:focus::placeholder {
+  color: #ffffff; /* Change placeholder color on focus */
 }
 
 /* Text area styling */
 .textarea-field textarea {
-    color: #ecf0f1;
-    resize: vertical; /* Allow vertical resizing only */
+  color: #ecf0f1;
+  resize: vertical; /* Allow vertical resizing only */
 }
 
 /* Button styles */
 .btn {
-    background-color: #33ff44; /* Button color */
-    color: rgb(0, 0, 0); /* Text color */
-    border: none; /* No border */
-    padding: 15px 30px; /* Padding */
-    font-size: 16px; /* Font size */
-    cursor: pointer; /* Pointer cursor */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition */
-    display: inline-block; /* Align inline */
+  background-color: #33ff44; /* Button color */
+  color: rgb(0, 0, 0); /* Text color */
+  border: none; /* No border */
+  padding: 15px 30px; /* Padding */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  display: inline-block; /* Align inline */
 }
 
 .btn:hover {
-    background-color: #ff3b00; /* Darker shade on hover */
+  background-color: #ff3b00; /* Darker shade on hover */
 }
