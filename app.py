@@ -40,3 +40,4 @@ elif option == "Webcam":
             frame = detect_objects(frame, net, output_layers, classes, colors)
             stframe.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), channels="RGB")
         cap.release()
+
