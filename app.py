@@ -23,7 +23,7 @@ st.set_page_config(
 st.title("Object Detection")
 url = 'file:///C:/Users/HP/OneDrive/Desktop/object%20detection%20website/p1.html'
 
-st.link_button("About Us", "https://github.com/Divy-Gupta/Object-Detection/tree/main")
+st.link_button("About Us", "https://github.com/Sameer25034")
 
 # Sidebar
 st.sidebar.header("Settings")
@@ -93,4 +93,5 @@ elif source_radio == settings.YOUTUBE:
 
 else:
     st.error("Please select a valid source type!")
+
 
