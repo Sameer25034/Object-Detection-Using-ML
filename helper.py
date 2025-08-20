@@ -1,139 +1,63 @@
-from ultralytics import YOLO
 import cv2
-import streamlit as st
-import yt_dlp
-import settings
+import pafy
+import numpy as np
 
-
-# ---------------- Load Model ----------------
-def load_model(model_path):
-    """Load YOLO model from given path."""
-    return YOLO(str(model_path))
-
-
-# ---------------- Tracker Options ----------------
-def display_tracker_options():
-    display_tracker = 'No'  # st.radio("Display Tracker", ('Yes', 'No'))
-    is_display_tracker = True if display_tracker == 'Yes' else False
-    if is_display_tracker:
-        tracker_type = st.radio("Tracker", ("bytetrack.yaml", "botsort.yaml"))
-        return is_display_tracker, tracker_type
-    return is_display_tracker, None
-
-
-# ---------------- Frame Display ----------------
-def _display_detected_frames(conf, model, st_frame, image, is_display_tracking=None, tracker=None):
+def load_video_from_url(url):
     """
-    Run YOLO detection/tracking on a frame and display via Streamlit.
+    Load video from YouTube URL using pafy + cv2.VideoCapture
     """
-    # Resize for display
-    h, w = image.shape[:2]
-    target_w = 720
-    scale = target_w / max(1, w)
-    target_h = int(h * scale)
-    image_resized = cv2.resize(image, (target_w, target_h))
+    video = pafy.new(url)
+    best = video.getbest(preftype="mp4")
+    return cv2.VideoCapture(best.url)
 
-    # Detection / Tracking
-    if is_display_tracking:
-        res = model.track(image_resized, conf=conf, persist=True, tracker=tracker)
-    else:
-        res = model.predict(image_resized, conf=conf)
-
-    # Plot & Display
-    res_plotted = res[0].plot()
-    st_frame.image(
-        res_plotted,
-        caption="Detected Video",
-        channels="BGR",
-        use_column_width=True
-    )
-
-
-# ---------------- YouTube Stream ----------------
-def _get_youtube_stream_url(url: str) -> str:
+def load_webcam():
     """
-    Extract direct stream URL from YouTube (without full download).
+    Load video from local webcam
     """
-    ydl_opts = {
-        "format": "best[ext=mp4]/best",
-        "quiet": True,
-        "nocheckcertificate": True,
-        "skip_download": True,
-    }
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=False)
-        return info["url"]
+    return cv2.VideoCapture(0)
 
-
-def play_youtube_video(conf, model):
-    source_youtube = st.sidebar.text_input("YouTube Video URL")
-    is_display_tracker, tracker = display_tracker_options()
-
-    if st.sidebar.button("Detect Objects", key="yt"):
-        if not source_youtube:
-            st.sidebar.error("Please paste a YouTube URL")
-            return
-        try:
-            stream_url = _get_youtube_stream_url(source_youtube)
-            vid_cap = cv2.VideoCapture(stream_url)
-
-            st_frame = st.empty()
-            while vid_cap.isOpened():
-                success, image = vid_cap.read()
-                if success:
-                    _display_detected_frames(conf, model, st_frame, image, is_display_tracker, tracker)
-                else:
-                    vid_cap.release()
-                    break
-        except Exception as e:
-            st.sidebar.error("Error loading YouTube stream: " + str(e))
-
-
-# ---------------- RTSP Stream ----------------
-def play_rtsp_stream(conf, model):
+def detect_objects(frame, net, output_layers, classes, colors):
     """
-    Plays an RTSP stream and detects objects using YOLOv8.
+    Perform object detection on a frame using YOLO
     """
-    source_rtsp = st.sidebar.text_input("RTSP stream URL:")
-    st.sidebar.caption("Example: rtsp://admin:12345@192.168.1.210:554/Streaming/Channels/101")
-    is_display_tracker, tracker = display_tracker_options()
+    height, width, _ = frame.shape
 
-    if st.sidebar.button("Detect Objects", key="rtsp"):
-        try:
-            vid_cap = cv2.VideoCapture(source_rtsp)
-            st_frame = st.empty()
+    # Create blob and perform forward pass
+    blob = cv2.dnn.blobFromImage(frame, 0.00392, (416, 416), (0,0,0), True, crop=False)
+    net.setInput(blob)
+    outs = net.forward(output_layers)
 
-            while vid_cap.isOpened():
-                success, image = vid_cap.read()
-                if success:
-                    _display_detected_frames(conf, model, st_frame, image, is_display_tracker, tracker)
-                else:
-                    vid_cap.release()
-                    break
-        except Exception as e:
-            vid_cap.release()
-            st.sidebar.error("Error loading RTSP stream: " + str(e))
+    # Info
+    class_ids = []
+    confidences = []
+    boxes = []
 
+    for out in outs:
+        for detection in out:
+            scores = detection[5:]
+            class_id = np.argmax(scores)
+            confidence = scores[class_id]
+            if confidence > 0.5:
+                center_x = int(detection[0] * width)
+                center_y = int(detection[1] * height)
+                w = int(detection[2] * width)
+                h = int(detection[3] * height)
 
-# ---------------- Webcam ----------------
-def play_webcam(conf, model):
-    """
-    Plays webcam stream and detects objects using YOLOv8.
-    """
-    source_webcam = settings.WEBCAM_PATH
-    is_display_tracker, tracker = display_tracker_options()
+                x = int(center_x - w / 2)
+                y = int(center_y - h / 2)
 
-    if st.sidebar.button("Detect Objects", key="webcam"):
-        try:
-            vid_cap = cv2.VideoCapture(source_webcam)
-            st_frame = st.empty()
+                boxes.append([x, y, w, h])
+                confidences.append(float(confidence))
+                class_ids.append(class_id)
 
-            while vid_cap.isOpened():
-                success, image = vid_cap.read()
-                if success:
-                    _display_detected_frames(conf, model, st_frame, image, is_display_tracker, tracker)
-                else:
-                    vid_cap.release()
-                    break
-        except Exception as e:
-            st.sidebar.error("Error loading webcam: " + str(e))
+    indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
+    font = cv2.FONT_HERSHEY_PLAIN
+    for i in range(len(boxes)):
+        if i in indexes:
+            x, y, w, h = boxes[i]
+            label = str(classes[class_ids[i]])
+            color = colors[i % len(colors)]
+            cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
+            cv2.putText(frame, label, (x, y - 5), font, 2, color, 2)
+
+    return frame
